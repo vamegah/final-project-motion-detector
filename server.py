@@ -20,16 +20,20 @@ def sent_detector():
 
     # Pass the text to the sentiment_analyzer function and store the response
     response = emotion_detector(text_to_detect)
-    
-    # Return a formatted string with the emotions
-    return  (
-        f"For the given statement, the system response is "
-        f"'anger': {response.get('anger')}, "
-        f"'disgust': {response.get('disgust')}, "
-        f"'fear': {response.get('fear')}, "
-        f"'joy': {response.get('joy')}, "
-        f"and 'sadness': {response.get('sadness')}. "
-        f"The dominant emotion is {response.get('dominant_emotion')}."
+
+    # Check if the label is None, indicating an error or invalid input
+    if response.get('dominant_emotion') is None:
+        return "Invalid input! Try again."
+    else:
+         # Return a formatted string with the emotions
+         return  (
+            f"For the given statement, the system response is "
+            f"'anger': {response.get('anger')}, "
+            f"'disgust': {response.get('disgust')}, "
+            f"'fear': {response.get('fear')}, "
+            f"'joy': {response.get('joy')}, "
+             f"and 'sadness': {response.get('sadness')}. "
+            f"The dominant emotion is {response.get('dominant_emotion')}."
     )
 
 
@@ -38,4 +42,4 @@ def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 500)
+    app.run(host = "0.0.0.0", port = 5002)

@@ -23,6 +23,8 @@ def emotion_detector(text_to_analyse):
     # Find the dominant emotion (emotion with the highest score)
     dominant_emotion = max(emotions, key=emotions.get)
 
+
+
     # Prepare the output in the required format
     formated_dictected_emotions = {
         'anger': emotions.get('anger', 0),
@@ -33,6 +35,21 @@ def emotion_detector(text_to_analyse):
         'dominant_emotion': dominant_emotion
     }
 
+
+    
+    # If the response status code is 200, extract the emotions and score from the response
+    if response.status_code == 200:
+        return formated_dictected_emotions
+
+    # If the response status code is 500, set emotions and score to None
+    elif response.status_code == 500:
+        formated_dictected_emotions = {
+                            'anger': None,
+                            'disgust': None, 
+                            'fear': None, 
+                            'joy': None, 
+                            'sadness': None, 
+                            'dominant_emotion': None}
 
     # Return the detected motion
     return formated_dictected_emotions
