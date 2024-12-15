@@ -11,10 +11,11 @@ from EmotionDetection.emotion_detection import emotion_detector
 #Initiate the flask app
 app = Flask("Emotion Detection")
 
-
 @app.route("/emotionDetector")
 def sent_detector():
-
+    """ 
+    Detect the user's emotion in a text and return the result.
+    """
     # Retrieve the text to detect from the request arguments
     text_to_detect = request.args.get('textToAnalyze')
 
@@ -24,22 +25,25 @@ def sent_detector():
     # Check if the label is None, indicating an error or invalid input
     if response.get('dominant_emotion') is None:
         return "Invalid input! Try again."
-    else:
-         # Return a formatted string with the emotions
-         return  (
-            f"For the given statement, the system response is "
-            f"'anger': {response.get('anger')}, "
-            f"'disgust': {response.get('disgust')}, "
-            f"'fear': {response.get('fear')}, "
-            f"'joy': {response.get('joy')}, "
-             f"and 'sadness': {response.get('sadness')}. "
-            f"The dominant emotion is {response.get('dominant_emotion')}."
-    )
 
+    # Return a formatted string with the emotions
+    return(
+        f"For the given statement, the system response is "
+        f"'anger': {response.get('anger')}, "
+        f"'disgust': {response.get('disgust')}, "
+        f"'fear': {response.get('fear')}, "
+        f"'joy': {response.get('joy')}, "
+        f"and 'sadness': {response.get('sadness')}. "
+        f"The dominant emotion is {response.get('dominant_emotion')}.")
 
 @app.route("/")
 def render_index_page():
+
+    ''' This function initiates the rendering of the main application
+        page over the Flask channel
+    '''
     return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5004)
+    
